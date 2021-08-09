@@ -1,6 +1,6 @@
 # Contributing to "How We Work"
 How We Work is both a place of documentation and standardization. It is a public repository, so everyone can see everything in the repository alongside on [docs.kvalifik.dk](https://docs.kvalifik.dk/).
-The website is hosted on Jekyll and is updated on every push to production.
+The website is hosted on Jekyll and is updated on every push to production. The CI/CD flow uses a personal access token created by Rasmus Løvstad on 2020-09-08.
 
 # Finding a subject
 Each subject is written as a task on the Developer Team Forecast board and has the label "HowWeWork".
