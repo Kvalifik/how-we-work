@@ -45,7 +45,11 @@ All projects should have the Forecast integration enabled. It can be enabled on 
 
 ## Branch rules
 Each repository should have the following branch rules:
-For branches matching `/staging/` and `/production/`:
+For branches matching `/staging/`:
 - Require pull request reviews before merging
+- Require status checks to pass before merging
+- Require branches to be up to date before merging
+
+For branches matching  `/production/`:
 - Require status checks to pass before merging
 - Require branches to be up to date before merging
