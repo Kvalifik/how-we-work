@@ -1,5 +1,5 @@
 # How We Use Node.js for Backend Development
-We use Node.js for our backend services, using the NestJS framework, TypeScript, TypeORM and PostgreSQL. We deploy the services on Google Cloud Platform using Terraform and Github Actions. The services run as Docker containers (using Google Cloud Run), and we use docker compose for our local development environment.
+We use Node.js for our backend services, using the NestJS framework, TypeScript, TypeORM and PostgreSQL. We deploy the services on Google Cloud Platform using Terraform and Github Actions. The services run as Docker containers (using Google Cloud Run), and we use `docker-compose` for our local development environment.
 
 ## NestJS
 We use NestJS for all our backend services, which also means that we adhere to the NestJS architecture (Model-View-Controller architecture with dependency injected providers). We adhere to the [SOLID principles](https://en.wikipedia.org/wiki/SOLID) and divide our code into small, easily testable units of code. 
@@ -20,7 +20,7 @@ We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pa
 We use managed SQL servers through Google Cloud SQL. We avoid [common mistakes](https://wiki.postgresql.org/wiki/Don't_Do_This), although our ORM mostly saves us from these.
 
 ## Terraform
-We use Terraform for managing all of our infrastructure declaratively, and run our changes on every push to staging or production. We store the Terraform state in the `gs://terraform-state-kvalifik` bucket in the "Terraform Remote State Storage" Google Cloud Project. For a project that uses Terraform well, check [Testamentegenerator](https://github.com/Kvalifik/testamentegenerator-backend). We separate our environments using `terraform workspace`. All terraform configurations should be able to easily be run in multiple environments.
+We use Terraform for managing all of our infrastructure declaratively, and run our changes on every push to staging or production. We store the Terraform state in the `gs://terraform-state-kvalifik` bucket in the "Terraform Remote State Storage" Google Cloud Project. For a project that uses Terraform well, check [Testamentegenerator](https://github.com/Kvalifik/testamentegenerator-backend).
 
 ## Testing
 We use Jest and Supertest for testing our software. We run all tests on every step of our CI flow. Our testing strategy is to _reasonably argue for our code correctness based on our tests_. This is achieved through end-to-end testing of all of our endpoints as well as some unit tests for complex pieces of code. Our development workflow is primarily test-driven, and we only regard code as finished when our code is well-tested. Our end-to-end tests use a live database-layer, but mocks other external dependencies to keep our testing environments stable. Our unit tests do not use a real database-layer, but instead mocks it. 
