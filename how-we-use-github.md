@@ -30,7 +30,7 @@ We use Continous Deployment through Github Actions to deploy our code to its res
 > Exception: Our Next.js projects have their deployment automatically managed by Vercel.
 
 ## Commits and Commit Messages
-We aspire to keep commits small and plenty. They should only contain relevant hunks and their commit message should accurately describe the change that the hunk implements. Upon merging into `staging`, we squash all commits of a pull request into a single commit.
+We aspire to keep commits small and plenty. They should only contain relevant hunks and their commit message should accurately describe the change that the hunk implements. We do not squash our commits due to potential merge conflicts.
 
 ## Merge Conflicts
 We resolve merge conflicts and test our code after again before requesting code review. We recommend resolving merge conflicts locally and not using GitHub's web interface. 
