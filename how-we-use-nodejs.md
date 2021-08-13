@@ -7,20 +7,20 @@ We abstract dependencies into services whenever possible.
 > Example: A backend that depends on Axios for outbound request would have a service called RequestService that itself calls the methods that Axios might need.
 
 ## TypeORM
-We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pattern, and the `@nestjs/typeorm` package to dependency inject TypeORM repositories into services and controllers. We use schema syncronization in our tests and migrations in our live environments. We automatically check in our CI flow whether or not the schema created by the migrations matches the one defined by the entities.
+We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pattern, and the `@nestjs/typeorm` package to dependency inject TypeORM repositories into services and controllers. We use schema synchronization in our tests and migrations in our live environments. We automatically check in our CI flow whether or not the schema created by the migrations matches the one defined by the entities.
 
 ### Migration Policy
 - Migrations are read-only: No migration may ever be edited when it has entered the staging or production environment.
 - Migrations are only to be generated using the TypeORM CLI utility: This ensures no discrepancies between the schema created by the migrations compared to the one defined by the entities.
 - Migrations are run automatically on server startup after every deployment.
-- Migrations are small and preferably only affects 1 table at a time.
-- Migrations should always be reversable to ensure no breaking changes.
+- Migrations are small and preferably only affect 1 table at a time.
+- Migrations should always be reversible to ensure no breaking changes.
 
 ## PostgreSQL
 We use managed SQL servers through Google Cloud SQL. We avoid [common mistakes](https://wiki.postgresql.org/wiki/Don't_Do_This), although our ORM mostly saves us from these.
 
 ## Terraform
-We use Terraform for managing all of our infrastructure declaratively, and run our changes on every push to staging or production. We store the Terraform state in the `gs://terraform-state-kvalifik` bucket in the "Terraform Remote State Storage" Google Cloud Project. For a project that uses Terraform well, check [Testamentegenerator](https://github.com/Kvalifik/testamentegenerator-backend). We seperate our environments using `terraform workspace`. All terraform configurations should be able to easily be run in multiple environments.
+We use Terraform for managing all of our infrastructure declaratively, and run our changes on every push to staging or production. We store the Terraform state in the `gs://terraform-state-kvalifik` bucket in the "Terraform Remote State Storage" Google Cloud Project. For a project that uses Terraform well, check [Testamentegenerator](https://github.com/Kvalifik/testamentegenerator-backend). We separate our environments using `terraform workspace`. All terraform configurations should be able to easily be run in multiple environments.
 
 ## Testing
 We use Jest and Supertest for testing our software. We run all tests on every step of our CI flow. Our testing strategy is to _reasonably argue for our code correctness based on our tests_. This is achieved through end-to-end testing of all of our endpoints as well as some unit tests for complex pieces of code. Our development workflow is primarily test-driven, and we only regard code as finished when our code is well-tested. Our end-to-end tests use a live database-layer, but mocks other external dependencies to keep our testing environments stable. Our unit tests do not use a real database-layer, but instead mocks it. 
@@ -50,7 +50,7 @@ During development, we use a `.env` file that is ignored by git. Our CI system u
 We use JWT for authenticating our frontends, passport-jwt for handling the authentication and bcrypt for hashing our passwords. We always salt our passwords, and never store them in plaintext, anywhere.
 
 ## Google Cloud Platform
-Google Cloud Platform is the only hosting platform that we use for backend projects. Here is list of services that we use:
+Google Cloud Platform is the only hosting platform that we use for backend projects. Here is a list of services that we use:
 - Container Registry for storing our images
 - Cloud Run for hosting our containers
 - Logging
