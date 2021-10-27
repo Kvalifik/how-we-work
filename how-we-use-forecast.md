@@ -10,11 +10,11 @@ To aid this, we use Forecasts GitHub integration and [Kvalifik-CLI](https://gith
 
 Forecast does not automatically integrate with GitHub, so there's a bit of setup needed.
 
-- You must have Kvalifik-CLI installed via: `npm install -g kvalifik-cli`
+- You must have Kvalifik-CLI installed via: `npm install -g kvalifik-cli`<br>
   For details, see [Kvalifik-CLI repository](https://github.com/Kvalifik/Kvalifik-CLI) or `kvalifik-cli help`
-- The project should be integrated with a GitHub Repository
+- The project should be integrated with a GitHub Repository<br>
   See 'Setup: GitHub Project integration'.
-- Your Forecast profile should be linked to GitHub
+- Your Forecast profile should be linked to GitHub<br>
   see 'Setup: GitHub Linked Profile'
 
 ### Setup: GitHub Project integration
