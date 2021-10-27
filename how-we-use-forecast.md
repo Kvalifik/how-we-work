@@ -27,7 +27,7 @@ The integration is set up per project.
 
 Go to 'Settings' -> 'Integrations' and scroll down to select a repository.
 
-![](src/how-we-use-forecast/github_settings.png)
+![ ](assets/how-we-use-forecast/github_settings.png)
 
 Please only select 1 repository, even if Forecast let's you select multiple. We _**can't**_ synchronise 1 project with multiple repositories. For Forecast projects that require multiple repositories, refer to the Kvalifik-CLI documentation for our workaround.
 
@@ -39,7 +39,7 @@ Like our projects, all Forecast profiles should be integrated with GitHub. This 
 
 To link your GitHub account to Forecast, go to ['My Profile'](https://app.forecast.it/my-profile/profile), and scroll down to the bottom. When successfully linked, it should look like this:
 
-![](src/how-we-use-forecast/github_linkedaccount.png)
+![](assets/how-we-use-forecast/github_linkedaccount.png)
 
 Now, everytime you're assigned to a task in Forecast, you'll also be assigned to the Issue in GitHub. This let's you easily filter between issues when working in larger dev teams. Kvalifik-CLI has a handy '-a' flag on the 'work-on' command that only shows issues assigned to you: `kvalifik w -a`
 
