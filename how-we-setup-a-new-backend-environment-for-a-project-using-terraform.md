@@ -2,12 +2,10 @@
 
 First, create a GitHub repository by copying our template repository [template-backend-nestjs](https://github.com/Kvalifik/template-backend-nestjs).
 
-<aside>
-☝ Please change the directory to your local repository corresponding to the project. This will enable the upcoming gh commands to add secrets to the right repository in GitHub.
+> Note: Please change the directory to your local repository corresponding to the project. This will enable the upcoming gh commands to add secrets to the right repository in GitHub.
 
-</aside>
 
-### Setting up Terraform state management
+## Setting up Terraform state management
 
 Let's generate a service account in the GCP project Terraform Remote State Storage and use it to store terraform state for the project.
 
@@ -32,10 +30,7 @@ gsutil iam ch serviceAccount:[project-name]@terraform-remote-state-storage.iam.g
 
 Create a private key for the service account.
 
-<aside>
-🚨 This will output a file at the specified path. Delete it as soon as you have finished this tutorial and do not check it into version control.
-
-</aside>
+> Be aware: This will output a file at the specified path. Delete it as soon as you have finished this tutorial and do not check it into version control.
 
 ```bash
 gcloud iam service-accounts keys create terraform-state-key.json --iam-account=[project-name]@terraform-remote-state-storage.iam.gserviceaccount.com
@@ -55,7 +50,7 @@ rm terraform-state-key.json
 
 Next, we create a GCP project for each environment.
 
-### Setting up an environment
+## Setting up an environment
 
 In the following we have several parameters (with examples):
 
@@ -104,10 +99,7 @@ gcloud services enable [cloudresourcemanager.googleapis.com](http://cloudresourc
 
 Create a private key for the service account.
 
-<aside>
-🚨 This will output a file at the specified path. Delete it as soon as you have finished this tutorial and do not check it into version control.
-
-</aside>
+> Be aware: This will output a file at the specified path. Delete it as soon as you have finished this tutorial and do not check it into version control.
 
 ```bash
 gcloud iam service-accounts keys create [project-id]-key.json --iam-account=terraform-service@[project-id].iam.gserviceaccount.com
@@ -131,12 +123,8 @@ Make another secret in GitHub setting GCP_PROJECT_ID_[environment_uppercased] to
 gh secret set GCP_PROJECT_ID_[environment_uppercased] 
 ```
 
-<aside>
-☝ Note, please let the CD workflow (GitHub Action) run without deploying to Cloud Run the first time (these lines are commented out in the template repository) so that the container registry can be set up correctly. Afterwards, reintroduce these lines of code to also deploy Cloud Run.
+> Note: The CD workflow (GitHub Action) might fail the first time because a lot of GCP APIs are activated and the workflow might timeout. In that case, rerun the workflow on GitHub by clicking "Re-run all jobs" on the failed workflow.
 
-</aside>
+> Note: The CD workflow (GitHub Action) will also fail and complain that `Error retrieving available secret manager secret versions [...]` because we need to create a postgres-password secret in GCP Secret Manager. Generate a password in 1password and save it in a suitable vault. Go to GCP Console and select the project. Go to Security -> Secret Manager. From here you can create a new version of the secret and copy-paste the password from 1password. Afterwards, run the workflow again on GitHub by clicking "Re-run all jobs" on the failed workflow.
 
-<aside>
-☝ Note, the CD workflow (GitHub Action) might fail the time because a lot of GCP APIs are activated and the script might timeout. In that case, just run the script again on GitHub by clicking "Re-run all jobs" on the failed workflow.
-
-</aside>
+> Note: The CD workflow (GitHub Action) runs without deploying to Cloud Run initially (these lines are commented out in the template repository) so that the container registry can be set up correctly. When the workflow fails with the error `Error waiting to create Service: resource is in failed state "Ready:False" [...]`, then reintroduce the commented out lines of code. After you commit and push these changes, the CD workflow should succeed.
