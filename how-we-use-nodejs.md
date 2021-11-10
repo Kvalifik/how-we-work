@@ -46,6 +46,8 @@ We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pa
 
 Read the documentation [here](https://github.com/typeorm/typeorm/blob/master/docs/eager-and-lazy-relations.md)
 
+- If you want to access relations lazily by just writing `entity1.entity2`, you need to wrap the attribute type in `Promise`. However this adds a lot of annoyance when working with the relation, like loading the entity in `__entity2__` if you try to eagerly load it. Therefore it is easier to just load the relation by specifying it in `FindOptions` if you need to access it, like so: `{ relations: ['entity2'] }` or with a `leftJoinAndSelect`if using the `QueryBuilder`
+
 - When making `ManyToMany` relationships, make sure you add the `inverseSide` and specify the table name in the `JoinTable` decorator. This will ensure typeORM does not create two tables.
 
 ```typescript
@@ -53,8 +55,7 @@ Read the documentation [here](https://github.com/typeorm/typeorm/blob/master/doc
 @ManyToMany(() => Entity2, (e: Entity2) => e.entity1s)
 // Specify the table name to be used. Always use the same table name for both sides of the relationship
 @JoinTable({ name: 'entity1_to_entity2' })
-// Wrap in Promise, as this relation is lazy-loaded
-entity2s?: Promise<Entity2[]>
+entity2s?: Entity2[]
 
 @ManyToMany(() => Entity1, (e: Entity2) => e.entity2s, { eager: true })
 @JoinTable({ name: 'entity1_to_entity2' })
