@@ -42,7 +42,9 @@ We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pa
 
 ### Best practices
 
-#### Many to Many relationships
+#### Relationships
+
+Read the documentation [here](https://github.com/typeorm/typeorm/blob/master/docs/eager-and-lazy-relations.md)
 
 - When making `ManyToMany` relationships, make sure you add the `inverseSide` and specify the table name in the `JoinTable` decorator. This will ensure typeORM does not create two tables.
 
@@ -51,12 +53,16 @@ We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pa
 @ManyToMany(() => Entity2, (e: Entity2) => e.entity1s)
 // Specify the table name to be used. Always use the same table name for both sides of the relationship
 @JoinTable({ name: 'entity1_to_entity2' })
-entity2s?: Entity2[]
+// Wrap in Promise, as this relation is lazy-loaded
+entity2s?: Promise<Entity2[]>
 
-@ManyToMany(() => Entity1, (e: Entity2) => e.entity2s)
+@ManyToMany(() => Entity1, (e: Entity2) => e.entity2s, { eager: true })
 @JoinTable({ name: 'entity1_to_entity2' })
+// Do not wrap in promise since it is eager
 entity1s?: Entity1[]
 ```
+
+#### Lazy and eager relationships
 
 #### Working with dates
 
