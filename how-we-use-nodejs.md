@@ -62,8 +62,6 @@ entity2s?: Promise<Entity2[]>
 entity1s?: Entity1[]
 ```
 
-#### Lazy and eager relationships
-
 #### Working with dates
 
 - When working with dates, specify the column with `timestamptz`(timestamp with timezone) and use JS date as the attribute type:
