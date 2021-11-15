@@ -46,18 +46,20 @@ We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pa
 
 Read the documentation [here](https://github.com/typeorm/typeorm/blob/master/docs/eager-and-lazy-relations.md)
 
-- When making `ManyToMany` relationships, make sure you add the `inverseSide` and specify the table name in the `JoinTable` decorator. This will ensure typeORM does not create two tables.
+- We do not recommend using lazy-loaded relationships as they are unintuitive to work with. Instead we recommend using either `{ eager: true }` ( bear in mind that this can only be used on one side of the relationship ) in the entity options of the `@Entity()` decorator or load the relationship explicitly using the `FindOptions` option `{ relations: ['entity2'] }` or with a `leftJoinAndSelect`if using the `QueryBuilder`.
+
+- When making `ManyToMany` relationships, make sure you add the `inverseSide` and specify the table name in the `@JoinTable` decorator. This will ensure typeORM does not create two tables.
+
+- Ensure that you only have the `@Jointable` decorator on one side of the relation.
 
 ```typescript
 // Specify the inverseSide of relation
-@ManyToMany(() => Entity2, (e: Entity2) => e.entity1s)
+@ManyToMany(() => Entity2, (e: Entity2) => e.entity1s, { eager: true })
 // Specify the table name to be used. Always use the same table name for both sides of the relationship
 @JoinTable({ name: 'entity1_to_entity2' })
-// Wrap in Promise, as this relation is lazy-loaded
-entity2s?: Promise<Entity2[]>
+entity2s?: Entity2[]
 
-@ManyToMany(() => Entity1, (e: Entity2) => e.entity2s, { eager: true })
-@JoinTable({ name: 'entity1_to_entity2' })
+@ManyToMany(() => Entity1, (e: Entity2) => e.entity2s)
 // Do not wrap in promise since it is eager
 entity1s?: Entity1[]
 ```
