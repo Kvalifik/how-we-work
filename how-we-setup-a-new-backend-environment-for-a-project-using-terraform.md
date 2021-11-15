@@ -76,7 +76,7 @@ Creating Service Account in Project [project-id]
 Grant Access to Dev Team:
 
 ```bash
-gcloud projects add-iam-policy-binding [project-id] [--member="group:developer-team@kvalifik.dk](mailto:--member=%22group:developer-team@kvalifik.dk)" --role="roles/owner"
+gcloud projects add-iam-policy-binding [project-id] --member="group:developer-team@kvalifik.dk" --role="roles/owner"
 ```
 
 Create Service Acount:
