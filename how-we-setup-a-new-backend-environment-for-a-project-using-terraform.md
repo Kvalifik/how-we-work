@@ -94,7 +94,7 @@ gcloud projects add-iam-policy-binding [project-id] --member="serviceAccount:ter
 Enable Cloud Resource Manager API (might need special privileges, ask Nikolaj):
 
 ```bash
-gcloud services enable [cloudresourcemanager.googleapis.com](http://cloudresourcemanager.googleapis.com/) --project=[project-id]
+gcloud services enable cloudresourcemanager.googleapis.com --project=[project-id]
 ```
 
 Create a private key for the service account.
