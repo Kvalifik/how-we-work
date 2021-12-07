@@ -29,7 +29,7 @@ Go to 'Settings' -> 'Integrations' and scroll down to select a repository.
 
 ![ ](assets/how-we-use-forecast/github_settings.png)
 
-Please only select 1 repository, even if Forecast lets you select multiple. It is currently **impossible** to synchronise 1 project with multiple repositories. For Forecast projects that require multiple repositories, refer to the Kvalifik-CLI documentation for our workaround.
+Please only select 1 repository, even if Forecast lets you select multiple. It is currently **impossible** to synchronise 1 project with multiple repositories. For Forecast projects that require multiple repositories, refer to the [Kvalifik-CLI documentation](https://github.com/Kvalifik/kvalifik-cli#kvalifik-cli-work-on) for our workaround.
 
 > \*Requires a linked GitHub profile. See below for how to set this up.
 
