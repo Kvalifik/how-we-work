@@ -18,4 +18,4 @@ We use Tailwind CSS for styling. See [kiddo-frontend](https://github.com/Kvalifi
 To set up a Next.js project, it is best to duplicate an existing project. The [kiddo-frontend](https://github.com/Kvalifik/kiddo-frontend) is a great starting point.
 
 ## Continuous Deployment Using Vercel
-We use Vercel for hosting the site using its continuous deployment feature, including its branch previews. We use Terraform to manage the Vercel deployment and eventual environment variables. An example of this can be seen in [easymove-planner](https://github.com/Kvalifik/easymove-planner). NOTE: To use this, one needs to create a service account to manage Terraform state as we do when creating new backends.
+We use Vercel for hosting the site using its continuous deployment feature, including its branch previews. We use Terraform to manage the Vercel deployment and eventual environment variables. An example of this can be seen in [behandlerskole-frontend](https://github.com/Kvalifik/behandlerskole-frontend).
