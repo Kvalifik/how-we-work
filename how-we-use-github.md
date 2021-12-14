@@ -36,6 +36,7 @@ When you then create the second PR, edit it's base to the older PR.
 The only thing you need to be careful about is, that the earlier PR is merged *before* this new one. Otherwise this PRs code diff will show up as diff in the earlier one.
 Merging the earlier one first and deleting the branch will cause this PR to automatically resolve it's base branch to staging, meaning everthing will work smoothly :-)
 
+We recommend adding a note on the 2nd PR, so that others are aware of this special case.
 ## Issues
 
 We use Github issues to connect tasks to pull requests and to easily work on tasks through the [Kvalifik CLI](https://github.com/Kvalifik/Kvalifik-CLI). The issues are populated through Forecast by Forecast's Github integration.
