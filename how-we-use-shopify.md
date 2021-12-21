@@ -70,7 +70,7 @@ Set's up your project, and prompts you to fill out our `shopify.config.json` fil
 
 A project agnostic way of serving a development theme.
 
-Our Skeleton Theme projects are built with Gulp and Tailwind, which requires a slightly different dev script. OS2.0 and legacy themes can simply use Shopify CLI. This command checks your project and picks the right command.
+Our Skeleton Theme projects are built with Gulp and Tailwind, which requires a slightly different dev script. OS 2.0 and legacy themes can simply use Shopify CLI. This command checks your project and picks the right command.
 
 ### shopify-get-live-settings
 
@@ -89,6 +89,6 @@ Some of our clients prefer to use our `/production` theme as a template, which t
 
 This means we can't push new features to live directly, but this is usually a non-issue.
 
-More importantly, it means that our GitHub will be out of sync with the latest Theme Customizations. To alleviate this, we're working on a CI solution but that's currently waiting for an update to Shopify-CLI. Until then, you can and should use our custom CLI command `kvalifik shopify-get-live-settings` to pull the `/config/settings_data.json`file into your branch, before merging with `/development` and `/production`.
+More importantly, it means that our GitHub will be out of sync with the latest Theme Customizations. To alleviate this, we're working on a CI solution but that's currently waiting for an update to Shopify-CLI. Until then, you can and should use our custom CLI command `kvalifik shopify-get-live-settings` to pull the `/config/settings_data.json` file into your branch, before merging with `/development` and `/production`.
 
 This way, the next time our client duplicates our `/production` theme, they'll have all the edits they made last time.
