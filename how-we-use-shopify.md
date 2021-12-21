@@ -37,7 +37,9 @@ These branches should be linked with a theme on the client store. Production is 
 
 When working on features, use Kvalifik CLI to create a branch pr. feature, and preview these via `kvalifik shopify-serve`. When ready for approval by client, merge your branch into `/development`. Do _not_ delete your branch!
 
-When a feature is approved, merge its branch or `/development`into `/production`. Which branch to merge depends on the status of the other features present in `/development`. One could imagine a scenario where we've built 4 features, merged all into `/development` for client approval. Here we could risk that only 3 of them are approved. You have two options here:
+When a feature is approved, merge its branch or `/development` into `/production`.
+
+Which branch to merge depends on the status of the other features present in `/development`. One could imagine a scenario where we've built 4 features, merged all into `/development` for client approval. Here we could risk that only 3 of them are approved. You have two options here:
 
 - You can revert the commit for the rejected feature
 - Keep '/development' as is, and instead merge the 3 approved features one by one.
@@ -62,7 +64,7 @@ These commands are:
 
 ### shopify-init
 
-Set's up your project, and prompts you to fill out our `shopify.config.json`file. This is required for the other commands to work.
+Set's up your project, and prompts you to fill out our `shopify.config.json` file. This is required for the other commands to work.
 
 ### shopify-serve
 
