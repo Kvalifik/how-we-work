@@ -1,6 +1,6 @@
 # How We Use NPM for Frontend Development
 
-We use npm to manage packages for frontend development. We strive to use the latest LTS version, which is locked in the `package.json` file.
+We use npm to manage packages for frontend development. Currently Vercel does not support node 16, so we are on node version 14, which is locked in the `package.json` file. However, we strive to use the latest LTS version, when our infrastructure supports it.
 
 ## NVM
 
