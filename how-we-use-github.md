@@ -21,6 +21,22 @@ Each feature branch should have the name `feature/[issue-id]-[title]` correspond
 
 > Note: Some Shopify projects (notably shop.mikkeller.dk) use a three-tier infrastructure of development-staging-production
 
+### Tip for working on a new task that depends on a PR that isn't merged yet
+Often you will have just finished work on 1 task and set the PR ready for review. While you await review, you will start work on the "next" task, that needs the code from your un-merged PR.
+
+You will typically just create your new branch from the un-merged one and do your work.
+
+When you then create the second PR, edit it's base to the older PR.
+
+
+**That way you gain 2 advantages:**
+1. The reviewer of this PR doesn't accidentally review the code from the earlier PR
+2. You don't have merge conflicts when either of these are merged to the trunk
+
+The only thing you need to be careful about is, that the earlier PR is merged *before* this new one. Otherwise this PRs code diff will show up as diff in the earlier one.
+Merging the earlier one first and deleting the branch will cause this PR to automatically resolve it's base branch to staging, meaning everthing will work smoothly :-)
+
+We recommend adding a note on the 2nd PR, so that others are aware of this special case.
 ## Issues
 
 We use Github issues to connect tasks to pull requests and to easily work on tasks through the [Kvalifik CLI](https://github.com/Kvalifik/Kvalifik-CLI). The issues are populated through Forecast by Forecast's Github integration.
