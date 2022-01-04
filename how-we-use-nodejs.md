@@ -85,6 +85,10 @@ date: Date
 
 - If you are working on a migration locally and you delete the `**migration.ts` file, remember that in `dist/migrations/` the compiled JS version will still exist and you also have to remove this.
 
+### Seeding
+
+We use `typeorm-seeding` for creating seeds. Seeds are meant to only be used on a local environment to help test frontends by creating dummy data and admin users.
+
 ## PostgreSQL
 
 We use managed SQL servers through Google Cloud SQL. We avoid [common mistakes](https://wiki.postgresql.org/wiki/Don't_Do_This), although our ORM mostly saves us from these.
