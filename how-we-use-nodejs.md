@@ -9,6 +9,25 @@ We abstract dependencies into services whenever possible.
 
 > Example: A backend that depends on Axios for outbound request would have a service called RequestService that itself calls the methods that Axios might need.
 
+### Serialization
+We use [class-transformer](https://github.com/typestack/class-transformer) to serialize data returned to the client. This provide us with a method of sanitizing and transforming objects returned in network requests in a simple and declaritive way. The build-in `ClassSerializerInterceptor` is binded globally in our [template](https://github.com/Kvalifik/template-backend-nestjs) and allows us to annotate entities with decorators.
+
+We reccomend to strip objects for null values and return them as undefined instead.
+```typescript
+@Column({ type: String, nullable: true })
+@Transform(({ value }) => value ?? undefined)
+middleName: string | null
+```
+*Note: typeorm is not able to deduct the type automatically so we need to specify it.*
+
+We can also exclude certain properties.
+```typescript
+@Exclude()
+password: string;
+```
+
+>Note: class-transformer can also be used in dto's and when parsing query parameters (last option is good for transforming string parameters to other types).
+
 ### Gotchas
 
 #### Multiple path parameters in endpoint
