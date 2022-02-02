@@ -12,7 +12,7 @@ We abstract dependencies into services whenever possible.
 ### Serialization
 We use [class-transformer](https://github.com/typestack/class-transformer) to serialize data returned to the client. This provide us with a method of sanitizing and transforming objects returned in network requests in a simple and declaritive way. The build-in `ClassSerializerInterceptor` is binded globally in our [template](https://github.com/Kvalifik/template-backend-nestjs) and allows us to annotate entities with decorators.
 
-We reccomend to strip objects for null values and return them as undefined instead.
+We reccomend to strip objects for null values and return them as undefined instead. This makes handling of API response in frontend simple and data tranfered to a minimum.
 ```typescript
 @Column({ type: String, nullable: true })
 @Transform(({ value }) => value ?? undefined)
