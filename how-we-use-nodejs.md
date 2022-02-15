@@ -75,7 +75,7 @@ In order to revert a migration run `npx typeorm migration:revert`, delete the mi
 
 You can check the status of migrations by running `npx typeorm migration:show` to verify that the migration in question has been reverted.
 
-If you forget to revert the migration before deleting the migration file, you need to use `docker-compose down -V` which will wipe the db volume and the postgres container will know to recreate the db from scratch.
+If you forget to revert the migration before deleting the migration file, you need to use `docker-compose down -v` which will wipe the db volume and the postgres container will know to recreate the db from scratch.
 
 #### Migration Policy
 
