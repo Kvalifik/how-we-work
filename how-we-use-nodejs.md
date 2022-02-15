@@ -88,7 +88,7 @@ If you forget to revert the migration before deleting the migration file, you ne
 #### Migration gotcha's
 
 - If you are working on a migration locally and you delete the `**migration.ts` file, remember that in `dist/migrations/` the compiled JS version will still exist and you also have to remove this.
-- Your development database is persisted across docker-compose runs because of `- db:/var/lib/postgresql/data` and thus in order to recreate the database (and thus reapply migrations from scratch) you need to run `docker-compose down -V` which will wipe the persistent volumes
+- Your development database is persisted across docker-compose runs because of `- db:/var/lib/postgresql/data` and thus in order to recreate the database (and thus reapply migrations from scratch) you need to run `docker-compose down -v` which will wipe the persistent volumes
 
 ### Best practices
 
