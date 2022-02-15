@@ -69,7 +69,7 @@ We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pa
 
 TypeORM CLI can generate migrations automatically based on the difference between defined entitites (`**/*.entity.ts`) and the current database schema.
 
-Use `npm run db:migration -- -n <nameOfTheMigration>` in order to generate a new migration file.
+Use `npx typeorm migration:generate -p -n <nameOfTheMigration>` in order to generate a new migration file.
 
 In order to revert a migration run `npx typeorm migration:revert`, delete the migration file and recreate the containers.
 
