@@ -20,6 +20,25 @@ middleName: string | null
 ```
 *Note: typeorm is not able to deduct the type automatically so we need to specify it.*
 
+Be aware that the boolean transformer has weird behavior
+the class-transformer function `@Type(() => Boolean)` converts `"false"` to boolean value `true`, instead you should use:
+```typescript
+@Transform(({ value }) => {
+    // This is a string at runtime
+    // the call to String() does nothing
+    // but make TS happy
+    const str = String(value)
+    // Coerse str -> boolean
+    if (str === 'true') return true
+    if (str === 'false') return false
+    return undefined
+  })
+```
+
+Be aware about using `@validationPipe()`.
+if validationPipe() is used without { transform: true } , typescript will accept the type at compile time, but the runtime type will be unchanged from the input type (most likely a string).
+Meaning typescript can act like its getting a boolean at compile time, while handling a string at runtime, this is especially confusing if your code is using ternary operators.`
+
 We can also exclude certain properties.
 ```typescript
 @Exclude()
@@ -104,13 +123,43 @@ date: Date
 
 - If you are working on a migration locally and you delete the `**migration.ts` file, remember that in `dist/migrations/` the compiled JS version will still exist and you also have to remove this.
 
+### Recover from failed Typeorm CLI migrations
+For fixing a branch where a migration is behaving unexpectedly,
+ie. the migration uses `ALTER TABLE` when it should create a new table for a feature.
+This will only work with migrations you a working on in an isolated branch,
+if a migration is merged with production, **it stays in production**.
+
+``` bash
+docker-compose up -d
+docker-compose exec backend /bin/sh # Enter the docker container
+
+# Remove old migration
+rm migrations/<timestamp>-<MigrationName>.ts
+rm dist/migrations/<timestamp>-<MigrationName>.d.ts
+rm dist/migrations/<timestamp>-<MigrationName>.js
+rm dist/migrations/<timestamp>-<MigrationName>.js.map
+
+# Reset schema to normal state
+npx typeorm schema:drop
+npx typeorm migration:run
+
+# Generate and use migration
+npx typeorm migration:generate -n <MigrationName>
+npx typeorm migration:run
+
+# Check if migrations are complying with the schema
+npx typeorm schema:log
+
+docker-compose down
+```
+
 ### Seeding
 
 We use `typeorm-seeding` for creating seeds. Seeds are meant to only be used on a local environment to help test frontends by creating dummy data and admin users.
 
 ## PostgreSQL
 
-We use managed SQL servers through Google Cloud SQL. We avoid [common mistakes](https://wiki.postgresql.org/wiki/Don't_Do_This), although our ORM mostly saves us from these.
+We use managed SQL servers through Google Cloud SQL. We avoid [common mistakes](https://wiki.postgresql.org/wiki/Don\'t_Do_This), although our ORM mostly saves us from these.
 
 ## Terraform
 
