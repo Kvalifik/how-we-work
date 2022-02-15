@@ -10,23 +10,27 @@ We abstract dependencies into services whenever possible.
 > Example: A backend that depends on Axios for outbound request would have a service called RequestService that itself calls the methods that Axios might need.
 
 ### Serialization
+
 We use [class-transformer](https://github.com/typestack/class-transformer) to serialize data returned to the client. This provide us with a method of sanitizing and transforming objects returned in network requests in a simple and declaritive way. The build-in `ClassSerializerInterceptor` is binded globally in our [template](https://github.com/Kvalifik/template-backend-nestjs) and allows us to annotate entities with decorators.
 
 We reccomend to strip objects for null values and return them as undefined instead. This makes handling of API response in frontend simple and data tranfered to a minimum.
+
 ```typescript
 @Column({ type: String, nullable: true })
 @Transform(({ value }) => value ?? undefined)
 middleName: string | null
 ```
-*Note: typeorm is not able to deduct the type automatically so we need to specify it.*
+
+_Note: typeorm is not able to deduct the type automatically so we need to specify it._
 
 We can also exclude certain properties.
+
 ```typescript
 @Exclude()
 password: string;
 ```
 
->Note: class-transformer can also be used in dto's and when parsing query parameters (last option is good for transforming string parameters to other types).
+> Note: class-transformer can also be used in dto's and when parsing query parameters (last option is good for transforming string parameters to other types).
 
 ### Gotchas
 
@@ -58,6 +62,33 @@ linkEntities(
 ## TypeORM
 
 We use TypeORM as our ORM to integrate with PostgreSQL. We use the repository pattern, and the `@nestjs/typeorm` package to dependency inject TypeORM repositories into services and controllers. We use schema synchronization in our tests and migrations in our live environments. We automatically check in our CI flow whether or not the schema created by the migrations matches the one defined by the entities.
+
+### Migrations
+
+#### How to
+
+TypeORM CLI can generate migrations automatically based on the difference between defined entitites (`**/*.entity.ts`) and the current database schema.
+
+Use `npm run db:migration -- -n <nameOfTheMigration>` in order to generate a new migration file.
+
+In order to revert a migration run `npx typeorm migration:revert`, delete the migration file and recreate the containers.
+
+You can check the status of migrations by running `npx typeorm migration:show` to verify that the migration in question has been reverted.
+
+If you forget to revert the migration before deleting the migration file, you need to use `docker-compose down -V` which will wipe the db volume and the postgres container will know to recreate the db from scratch.
+
+#### Migration Policy
+
+- Migrations are read-only: No migration may ever be edited when it has entered the staging or production environment.
+- Migrations are only to be generated using the TypeORM CLI utility: This ensures no discrepancies between the schema created by the migrations compared to the one defined by the entities.
+- Migrations are run automatically on server startup after every deployment.
+- Migrations are small and preferably only affect 1 table at a time.
+- Migrations should always be reversible to ensure no breaking changes.
+
+#### Migration gotcha's
+
+- If you are working on a migration locally and you delete the `**migration.ts` file, remember that in `dist/migrations/` the compiled JS version will still exist and you also have to remove this.
+- Your development database is persisted across docker-compose runs because of `- db:/var/lib/postgresql/data` and thus in order to recreate the database (and thus reapply migrations from scratch) you need to run `docker-compose down -V` which will wipe the persistent volumes
 
 ### Best practices
 
@@ -91,18 +122,6 @@ entity1s?: Entity1[]
 @Column({ type: 'timestamptz' })
 date: Date
 ```
-
-### Migration Policy
-
-- Migrations are read-only: No migration may ever be edited when it has entered the staging or production environment.
-- Migrations are only to be generated using the TypeORM CLI utility: This ensures no discrepancies between the schema created by the migrations compared to the one defined by the entities.
-- Migrations are run automatically on server startup after every deployment.
-- Migrations are small and preferably only affect 1 table at a time.
-- Migrations should always be reversible to ensure no breaking changes.
-
-### Migration gotcha's
-
-- If you are working on a migration locally and you delete the `**migration.ts` file, remember that in `dist/migrations/` the compiled JS version will still exist and you also have to remove this.
 
 ### Seeding
 
