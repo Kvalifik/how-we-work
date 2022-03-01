@@ -23,21 +23,6 @@ middleName: string | null
 
 _Note: typeorm is not able to deduct the type automatically so we need to specify it._
 
-Be aware that the boolean transformer has weird behavior
-the class-transformer function `@Type(() => Boolean)` converts `"false"` to boolean value `true`, instead you should use:
-```typescript
-@Transform(({ value }) => {
-    // This is a string at runtime
-    // the call to String() does nothing
-    // but make TS happy
-    const str = String(value)
-    // Coerse str -> boolean
-    if (str === 'true') return true
-    if (str === 'false') return false
-    return undefined
-  })
-```
-
 Be aware about using `@validationPipe()`.
 if validationPipe() is used without { transform: true } , typescript will accept the type at compile time, but the runtime type will be unchanged from the input type (most likely a string).
 Meaning typescript can act like its getting a boolean at compile time, while handling a string at runtime, this is especially confusing if your code is using ternary operators.`
@@ -52,6 +37,23 @@ password: string;
 > Note: class-transformer can also be used in dto's and when parsing query parameters (last option is good for transforming string parameters to other types).
 
 ### Gotchas
+
+#### class-transformer
+
+Be aware that the boolean transformer has weird behavior
+the class-transformer function `@Type(() => Boolean)` converts `"false"` to boolean value `true`, instead you should use:
+```typescript
+@Transform(({ value }) => {
+    // This is a string at runtime
+    // the call to String() does nothing
+    // but make TS happy
+    const str = String(value)
+    // Coerse str -> boolean
+    if (str === 'true') return true
+    if (str === 'false') return false
+    return undefined
+  })
+```
 
 #### Multiple path parameters in endpoint
 
