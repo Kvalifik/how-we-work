@@ -14,7 +14,7 @@ Shopify uses 'theme' for describing the Liquid, HTML, CSS and JS that make up th
 
 For an overview of Shopify's theme architecture refer to their docs found [here](https://shopify.dev/themes/architecture#directory-structure-and-component-types).
 
-As of December 2021, our Shopify stack is split between three types of themes:
+As of April 2022, our Shopify stack is split between three types of themes:
 
 - Kvalifik Skeleton Theme
 - Dawn / OS 2.0 Themes
