@@ -20,7 +20,11 @@ The primary way we're working with clients, is as Collaborators. In this setup, 
 
 We can also work on Development Stores. These aren't owned by a Client, don't cost anything and aren't indexed by Google. As Partners, we can create as many of these as we want, and transfer them to a client once everything is ready to go.
 
-For Development stores, it's crucial *not* to set the e-mail to 'services+shopify@kvalifik.dk'. Any other e-mail is fine. We prefer to use the format 'services+[CUSTOMER NAME]@kvalifik.dk' for easier handling.
+For Development stores, an owner account will be created, with the default email set to 'services+shopify@kvalifik.dk'.
+
+After creation, it's crucial to change this e-mail.
+
+This is because we use 'services+shopify@kvalifik.dk' for our generic developer *staff* account, which needs to be added to the store. Shopify doesn't support having an owner and a staff account with the same email, so the owner account's mail needs changing. We prefer to use the format 'services+[CUSTOMER NAME/PROJECT NAME]@kvalifik.dk' for easier handling.
 
 ## Themes
 
@@ -71,7 +75,7 @@ We have two ways of signing in with the CLI.
 
 You should always try to use your own developer account when developing. However, in some cases the Shopify CLI won't let you work on certain stores as a Developer. In those cases, you should use the generic Services account.
 
-Before using 'services+shopify@kvalifik.dk' you need to make sure there's a Staff Account for that e-mail on the store.
+Before using 'services+shopify@kvalifik.dk' you need to make sure there's a Staff Account for that e-mail on the store & and that the store owner does not use that email.
 
 ## Shopify CLI x Kvalifik CLI
 
