@@ -68,6 +68,12 @@ This is solved by creating the secret version manually before declaring it in th
 
 We use container registry to store the docker images that Cloud Run depends on. Under-the-hood, this is done by storing the image in a storage bucket. You can also push or pull from the container registry yourself if you authorize your machine using the `gcloud auth configure-docker` command.
 
+## Docker
+
+We use Docker for running our backends in the same environment on different machines. Docker allows us to build a specific environment once and deploy an entire image where all dependencies are included.
+We use node images with Debian as the base operating system for these images, and we store our code in `/usr/src/app` of the image.
+We use `docker-compose` locally to manage our development environment and handling the different services that are required to run the application.
+
 ## Github Actions
 
 We use Github Actions for our CD and CI flow. The configuration files are found in `.github/workflows`
@@ -76,6 +82,7 @@ An example could be running a PostgreSQL server when testing a NestJS server, su
 CI always uses the `.env.ci` file as an env file. If CI fails, you should probably not merge your branch into staging before fixing the issue.
 
 Our CD flows usually handles building the application, pushing images to Google Container Registry and performing changes to the infrastructure by running terraform.
+Regular environment variables are usually declared in the CD file, since they often are dependant on the environment on which they are running in. Application secrets are still declared in Google Secret Manager and need not to be declared in the CD file.
 Github actions usually depends on [Github Secrets](#Github-Secrets) to run.
 
 ## Github Secrets
