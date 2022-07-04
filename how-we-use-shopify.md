@@ -8,13 +8,31 @@ For general Shopify information, refer to Shopify's official documentation at [S
 
 Shopify Themes are powered by basic HTML, CSS and JS, supplemented with the templating language [Liquid](https://shopify.dev/api/liquid).
 
+## Shopify Partners
+tbd.
+
+
+## Stores
+
+In Shopify, there's a few ways to work on a store.
+
+The primary way we're working with clients, is as Collaborators. In this setup, our Shopify Partner account is added as a collaborator on a given store, and all developers within our Partner Organization have access.
+
+We can also work on Development Stores. These aren't owned by a Client, don't cost anything and aren't indexed by Google. As Partners, we can create as many of these as we want, and transfer them to a client once everything is ready to go.
+
+For Development stores, an owner account will be created, with the default email set to 'services+shopify@kvalifik.dk'.
+
+After creation, it's crucial to change this e-mail.
+
+This is because we use 'services+shopify@kvalifik.dk' for our generic developer *staff* account, which needs to be added to the store. Shopify doesn't support having an owner and a staff account with the same email, so the owner account's mail needs changing. We prefer to use the format 'services+[CUSTOMER NAME/PROJECT NAME]@kvalifik.dk' for easier handling.
+
 ## Themes
 
 Shopify uses 'theme' for describing the Liquid, HTML, CSS and JS that make up the storefront. This is akin to Wordpress' usage of the term.
 
 For an overview of Shopify's theme architecture refer to their docs found [here](https://shopify.dev/themes/architecture#directory-structure-and-component-types).
 
-As of December 2021, our Shopify stack is split between three types of themes:
+As of April 2022, our Shopify stack is split between three types of themes:
 
 - Kvalifik Skeleton Theme
 - Dawn / OS 2.0 Themes
@@ -33,7 +51,7 @@ Our Shopify projects should at least have two branches
 - Production
 - Development / Awaiting Approval
 
-These branches should be linked with a theme on the client store. Production is _usually_ the live theme, but some clients prefer duplicating it, and using temporary live themes instead. For those clients, refer to the workflow described [here](#duplicate-theme-workflow).
+These branches should be linked with a theme on the client store. Production is _usually_ the live theme, but some clients prefer duplicating it, and using temporary live themes instead. This is because Shopify doesn't support "Drafts" in the Theme Editor, meaning a client can't slowly build out new pages in the live theme. For clients who need this draft functionality, refer to the workflow described [here](#duplicate-theme-workflow).
 
 When working on features, use Kvalifik CLI to create a branch pr. feature, and preview these via `kvalifik shopify-serve`. When ready for approval by client, merge your branch into `/development`.
 
@@ -41,7 +59,25 @@ When a feature is approved, merge `/development` into `/production`.
 
 Which branch to merge depends on the status of the other features present in `/development`. One could imagine a scenario where we've built 4 features, merged all into `/development` for client approval. Here we could risk that only 3 of them are approved. In this case, you should revert the pull request (into `/development`) and restore the branch. Then you can merge the other features into `/production`, and fix the rejected.
 
-## Shopify x Kvalifik CLI
+## Shopify CLI
+
+With Online Store 2.0, Shopify updated their CLI to support Themes, replacing the previous ThemeKit application.
+
+We use the Shopify CLI to handle all development of themes. Read more about it [here](https://shopify.dev/themes)
+
+Shopify CLI is installed via Brew on Mac. Run ```brew install shopify-cli``` to do so. For other platforms, please refer to Shopify's own instructions found [here](https://shopify.dev/themes/tools/cli/installation).
+
+### Signing in
+We have two ways of signing in with the CLI.
+
+* An individual developer account, via our Shopify Partners
+* A generic 'services+shopify@kvalifik.dk' account (find password in 1Password).
+
+You should always try to use your own developer account when developing. However, in some cases the Shopify CLI won't let you work on certain stores as a Developer. In those cases, you should use the generic Services account.
+
+Before using 'services+shopify@kvalifik.dk' you need to make sure there's a Staff Account for that e-mail on the store & and that the store owner does not use that email.
+
+## Shopify CLI x Kvalifik CLI
 
 > You can read more about Kvalifik-CLI in the repo found at https://github.com/kvalifik/kvalifik-cli.
 
